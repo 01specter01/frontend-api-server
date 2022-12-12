@@ -1,25 +1,26 @@
 import { useEffect, useState } from "react";
 
-import { Container, Row, Col } from "react-bootstrap";
-import PhotoPreview from "../compontents/PhotoPreview";
+import { Container, Row } from "react-bootstrap";
+import CardPreview from "../components/CardPreview";
 
-export default function () {
-    const [photos, setPhotos] = useState([]);
-
+function CardsOverview() {
+    const [card, setCards] = useState([]);
     useEffect(() => {
-        fetch("http://127.0.0.1:4000/photos")
+        fetch("http://127.0.0.1:4000/cards")
             .then((res) => res.json())
-            .then((data) => setPhotos(data));
+            .then((data) => setCards(data));
     }, []);
 
     return (
-        <Container>
-            <h2 className="album-title">Alle Fotos</h2>
-            <Row>
-                {photos.map((p, i) => (
-                    <PhotoPreview key={i} photo={p} />
-                ))}
-            </Row>
-        </Container>
+        <>
+            <Container>
+                <Row>
+                    {card.map((p, i) => (
+                        <CardPreview key={i} card={p} />
+                    ))}
+                </Row>
+            </Container>
+        </>
     );
 }
+export default CardsOverview;
